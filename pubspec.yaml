@@ -21,10 +21,13 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+
   flutter:
     sdk: flutter
+
   http: any
-  shared_preferences: any
+  #shared_preferences: any
+  flutter_secure_storage: ^4.2.0
   intl: ^0.16.1
   rflutter_alert: ^1.0.3
   flutter_spinkit: "^4.1.2"
@@ -36,7 +39,11 @@ dependencies:
   charts_flutter: any
   provider: ^5.0.0
   modal_progress_hud: ^0.1.3
-
+  flutter_pusher: ^1.0.2
+  flutter_local_notifications: ^6.0.0
+  workmanager: ^0.4.0
+  flutter_swiper: ^1.1.6
+  expansion_tile_card: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

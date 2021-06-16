@@ -1,23 +1,38 @@
 class ScoreResponseModel {
+  final int advisorId;
   final String scoreTransunion;
   final String scoreExperian;
   final String scoreEquifax;
-  final String nameLead;
+  final List<dynamic> scoreList;
+  final List<dynamic> deleteList;
+  final List<dynamic> disputeList;
   final String error;
 
   ScoreResponseModel(
-      {this.scoreTransunion,
+      {this.advisorId,
+      this.scoreTransunion,
       this.scoreExperian,
       this.scoreEquifax,
-      this.error,
-      this.nameLead});
+      this.scoreList,
+      this.deleteList,
+      this.disputeList,
+      this.error});
 
   factory ScoreResponseModel.fromJson(Map<String, dynamic> json) {
     return ScoreResponseModel(
-      scoreTransunion: json["scoreTransunion"] != null ? json["scoreTransunion"] : "",
-      scoreExperian: json["scoreExperian"] != null ? json["scoreExperian"] : "",
-      scoreEquifax: json["scoreEquifax"] != null ? json["scoreEquifax"] : "",
-      nameLead: json["nameLead"] != null ? json["nameLead"] : "",
+      advisorId: json["advisorId"] != null ? json["advisorId"] : [],
+      scoreTransunion: json["scoreTransunion"] != null
+          ? (json["scoreTransunion"] != "-" ? json["scoreTransunion"] : "0")
+          : "0",
+      scoreExperian: json["scoreExperian"] != null
+          ? (json["scoreExperian"] != "-" ? json["scoreExperian"] : "0")
+          : "0",
+      scoreEquifax: json["scoreEquifax"] != null
+          ? (json["scoreEquifax"] != "-" ? json["scoreEquifax"] : "0")
+          : "0",
+      scoreList: json["listScores"] != null ? json["listScores"] : [],
+      deleteList: json["listDeleted"] != null ? json["listDeleted"] : [],
+      disputeList: json["listDispute"] != null ? json["listDispute"] : [],
       error: json["error"] != null ? json["error"] : "",
     );
   }

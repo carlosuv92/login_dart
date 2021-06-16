@@ -9,6 +9,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:devcredit/providers/login_state.dart';
 
+// ignore: must_be_immutable
 class Body extends StatelessWidget {
   final _accountController = TextEditingController();
   final _dateController = TextEditingController();
@@ -19,10 +20,11 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final _loginState = Provider.of<LoginState>(context, listen: true);
+    final _loginState = Provider.of<LoginState>(context, listen: false);
     return ChangeNotifierProvider<LoginState>(
       create: (context) => LoginState(),
       child: ModalProgressHUD(
+          inAsyncCall: Provider.of<LoginState>(context).isLoading(),
           child: Background(
             child: SingleChildScrollView(
               child: Column(
@@ -70,8 +72,7 @@ class Body extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          inAsyncCall: _loginState.isLoading()),
+          ),),
     );
   }
 
@@ -79,7 +80,7 @@ class Body extends StatelessWidget {
     DateTime newSelectedDate = await showDatePicker(
         context: context,
         initialDate: _selectedDate != null ? _selectedDate : DateTime.now(),
-        firstDate: DateTime(1980),
+        firstDate: DateTime(1950),
         lastDate: DateTime(2021),
         builder: (BuildContext context, Widget child) {
           return Theme(

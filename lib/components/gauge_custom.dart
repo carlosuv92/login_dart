@@ -35,7 +35,7 @@ class GaugeCustomer extends StatelessWidget {
                   cornerStyle: CornerStyle.bothCurve,
                   onValueChangeEnd: (value) {},
                   onValueChanging: (value) {},
-                  enableDragging: true,
+                  enableDragging: false,
                   width: 0.2,
                   sizeUnit: GaugeSizeUnit.factor)
             ],

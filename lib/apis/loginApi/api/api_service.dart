@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:devcredit/apis/loginApi/model/login_model.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +24,8 @@ class ApiLogin {
       print('Timeout $e');
     } on Error catch (e) {
       print('Error: $e');
+    } on SocketException catch (e) {
+      print('Socket Error: $e');
     }
   }
 }
