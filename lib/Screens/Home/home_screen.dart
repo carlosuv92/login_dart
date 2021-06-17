@@ -107,8 +107,8 @@ class _HomeAppState extends State<HomeApp> {
             label: 'Payments',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: 'Calculator',
+            icon: Icon(Icons.lightbulb_outline),
+            label: 'Tips',
           ),
         ],
         onTap: (index) {

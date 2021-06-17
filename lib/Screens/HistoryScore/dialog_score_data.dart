@@ -32,13 +32,16 @@ class _DialogScoreDataState extends State<DialogScoreData> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
             Container(
-              color: Colors.grey.shade200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40),
+                color: Colors.grey.shade200,
+              ),
               height: 500,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
@@ -61,7 +64,18 @@ class _DialogScoreDataState extends State<DialogScoreData> {
                             return new Container(
                               height: size.height * 0.33,
                               child: Card(
-                                color: widget.type == 1 ? Colors.green[50] : Colors.orange[50],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(35),
+                                  side: BorderSide(
+                                    color: widget.type == 1
+                                        ? Colors.green
+                                        : Colors.orange,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                color: widget.type == 1
+                                    ? Colors.green[50]
+                                    : Colors.orange[50],
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 5, vertical: 10),
@@ -110,8 +124,11 @@ class _DialogScoreDataState extends State<DialogScoreData> {
                                                       fontSize: 15,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: Colors
-                                                          .lightGreen[700]),
+                                                      color: widget.type == 1
+                                                          ? Colors
+                                                              .green.shade800
+                                                          : Colors
+                                                              .orange.shade800),
                                                 ),
                                               ),
                                               Padding(
@@ -166,10 +183,12 @@ class _DialogScoreDataState extends State<DialogScoreData> {
                                                       Expanded(
                                                         flex: 3,
                                                         child: Text(
-                                                          widget.dataAccount[
-                                                                  index]
-                                                                  ['balance']
-                                                              .toString(),
+                                                          '\$ ' +
+                                                              widget
+                                                                  .dataAccount[
+                                                                      index][
+                                                                      'balance']
+                                                                  .toString(),
                                                         ),
                                                       )
                                                     ],
@@ -259,10 +278,12 @@ class _DialogScoreDataState extends State<DialogScoreData> {
                                                       Expanded(
                                                         flex: 3,
                                                         child: Text(
-                                                          widget.dataAccount[
-                                                                  index]
-                                                                  ['c_limit']
-                                                              .toString(),
+                                                          '\$ ' +
+                                                              widget
+                                                                  .dataAccount[
+                                                                      index][
+                                                                      'c_limit']
+                                                                  .toString(),
                                                         ),
                                                       )
                                                     ],
@@ -290,10 +311,12 @@ class _DialogScoreDataState extends State<DialogScoreData> {
                                                       Expanded(
                                                         flex: 3,
                                                         child: Text(
-                                                          widget.dataAccount[
-                                                                  index]
-                                                                  ['m_payment']
-                                                              .toString(),
+                                                          '\$ ' +
+                                                              widget
+                                                                  .dataAccount[
+                                                                      index][
+                                                                      'm_payment']
+                                                                  .toString(),
                                                         ),
                                                       )
                                                     ],
@@ -311,7 +334,14 @@ class _DialogScoreDataState extends State<DialogScoreData> {
                             );
                           },
                           itemCount: widget.dataAccount.length,
-                          control: new SwiperControl(color: widget.type == 1 ? Colors.green : Colors.orange,),
+                          pagination: new SwiperPagination(
+                            alignment: Alignment.bottomCenter,
+                            builder: new DotSwiperPaginationBuilder(
+                                color: Colors.grey,
+                                activeColor: widget.type == 1
+                                    ? Colors.green
+                                    : Colors.orange),
+                          ),
                         ),
                       ),
                     ),
@@ -335,7 +365,9 @@ class _DialogScoreDataState extends State<DialogScoreData> {
                               child: Text(
                                 'OK',
                                 style: TextStyle(
-                                  color: widget.type == 1 ? Colors.green[500] : Colors.orange[500],
+                                  color: widget.type == 1
+                                      ? Colors.green[500]
+                                      : Colors.orange[500],
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -351,7 +383,8 @@ class _DialogScoreDataState extends State<DialogScoreData> {
             Positioned(
                 top: -30,
                 child: CircleAvatar(
-                  backgroundColor: widget.type == 1 ? Colors.green : Colors.orange,
+                  backgroundColor:
+                      widget.type == 1 ? Colors.green : Colors.orange,
                   radius: 30,
                   child: Icon(
                     Icons.arrow_circle_up,

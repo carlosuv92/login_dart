@@ -59,7 +59,7 @@ class InfoCard extends StatelessWidget {
                               text: "Total     ",
                               style: TextStyle(fontSize: 14, height: 2)),
                           TextSpan(
-                              text: amount + " \$",
+                              text: "\$ " + amount,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6

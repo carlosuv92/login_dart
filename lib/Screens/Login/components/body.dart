@@ -4,7 +4,6 @@ import 'package:devcredit/components/rounded_button.dart';
 import 'package:devcredit/components/rounded_input_field.dart';
 import 'package:devcredit/contains.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:devcredit/providers/login_state.dart';
@@ -12,10 +11,9 @@ import 'package:devcredit/providers/login_state.dart';
 // ignore: must_be_immutable
 class Body extends StatelessWidget {
   final _accountController = TextEditingController();
-  final _dateController = TextEditingController();
+  final _passwordController = TextEditingController();
   AnimationController controller;
   bool isValid = true;
-  DateTime _selectedDate = DateTime(1980, 1);
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +42,9 @@ class Body extends StatelessWidget {
                     keyboardType: TextInputType.text,
                   ),
                   RoundedInputField(
-                    focusNode: AlwaysDisabledFocusNode(),
-                    controller: _dateController,
-                    hintText: "Date of Birth",
-                    onTap: () {
-                      _selectDate(context);
-                    },
-                    icon: Icons.event,
+                    controller: _passwordController,
+                    hintText: "Your Password",
+                    keyboardType: TextInputType.number,
                   ),
                   RoundedButton(
                     text: "LOGIN" + _loginState.getUser().toString(),
@@ -59,8 +53,7 @@ class Body extends StatelessWidget {
                         ? () {
                             _loginState.setLoading = true;
                             String account = _accountController.text;
-                            String password =
-                                DateFormat('yyyy-MM-dd').format(_selectedDate);
+                            String password =_passwordController.text;
                             _loginState.login(account, password);
                           }
                         : () {},
@@ -76,39 +69,5 @@ class Body extends StatelessWidget {
     );
   }
 
-  _selectDate(BuildContext context) async {
-    DateTime newSelectedDate = await showDatePicker(
-        context: context,
-        initialDate: _selectedDate != null ? _selectedDate : DateTime.now(),
-        firstDate: DateTime(1950),
-        lastDate: DateTime(2021),
-        builder: (BuildContext context, Widget child) {
-          return Theme(
-            data: ThemeData.light().copyWith(
-              colorScheme: ColorScheme.light(
-                primary: kPrimaryColor,
-                onPrimary: Colors.black,
-                surface: kPrimaryLightColor,
-                onSurface: Colors.black,
-              ),
-              dialogBackgroundColor: kPrimaryLightColor,
-            ),
-            child: child,
-          );
-        });
-
-    if (newSelectedDate != null) {
-      _selectedDate = newSelectedDate;
-      _dateController
-        ..text = DateFormat.yMMMd().format(_selectedDate)
-        ..selection = TextSelection.fromPosition(TextPosition(
-            offset: _dateController.text.length,
-            affinity: TextAffinity.upstream));
-    }
-  }
 }
 
-class AlwaysDisabledFocusNode extends FocusNode {
-  @override
-  bool get hasFocus => false;
-}

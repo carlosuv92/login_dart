@@ -3,7 +3,6 @@ import 'package:devcredit/components/gauge_custom.dart';
 import 'package:devcredit/components/my_line_chart.dart';
 import 'package:devcredit/providers/login_state.dart';
 import 'package:devcredit/providers/score_state.dart';
-import 'package:flutter/services.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -63,9 +62,9 @@ class _ScoreScreenState extends State<ScoreScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Bureau Score",
+                    "SCORE",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w900,
                         fontSize: 24,
                         color: Colors.white),
                   ),
@@ -202,7 +201,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                "Credit History",
+                                "Score History",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w900,
                                     fontSize: 24,
@@ -250,7 +249,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                   children: <Widget>[
                                     CircleAvatar(
                                       radius: 8,
-                                      backgroundColor: Colors.green,
+                                      backgroundColor: Colors.green.shade800,
                                     ),
                                     SizedBox(
                                       width: 8,
@@ -320,7 +319,6 @@ class _ScoreScreenState extends State<ScoreScreen> {
                           height: 16,
                         ),
                         //Container Listview for expenses and incomes
-
                         Container(
                           child: Text(
                             "HISTORY SCORE",
@@ -363,20 +361,38 @@ class _ScoreScreenState extends State<ScoreScreen> {
                           controller: ScrollController(keepScrollOffset: false),
                         ),
 
-                        //now expense
                         SizedBox(
                           height: 16,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Accounts",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 24,
+                                    color: Colors.black),
+                              )
+                            ],
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 32),
+                        ),
+                        //now expense
+                        SizedBox(
+                          height: 5,
                         ),
 
                         Container(
                           child: Text(
-                            "REMOVIDA",
+                            "DELETED",
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.grey[500]),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          padding: EdgeInsets.symmetric(horizontal: 32),
                         ),
 
                         SizedBox(
@@ -389,7 +405,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                   horizontal: 5, vertical: 5),
                               child: GestureDetector(
                                 onTap: () {
-                                  showDialogScore(1, "REMOVED", deleted);
+                                  showDialogScore(1, "DELETED", deleted);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.symmetric(horizontal: 15),
@@ -422,14 +438,14 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                             Text(
                                               //for choose one account_name
                                               deleted[0]['account_name']
-                                                          .toString(),
+                                                  .toString(),
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w700,
                                                   color: Colors.grey[900]),
                                             ),
                                             Text(
-                                              "Removed",
+                                              "Deleted",
                                               style: TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w700,
@@ -443,7 +459,9 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                             CrossAxisAlignment.end,
                                         children: <Widget>[
                                           Text(
-                                            "+\$500.5",
+                                            "\$" +
+                                                deleted[0]['balance']
+                                                    .toString(),
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w700,
@@ -464,13 +482,13 @@ class _ScoreScreenState extends State<ScoreScreen> {
 
                         Container(
                           child: Text(
-                            "DISPUTE",
+                            "WORKING",
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.grey[500]),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          padding: EdgeInsets.symmetric(horizontal: 32),
                         ),
 
                         SizedBox(
@@ -479,8 +497,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
 
                         for (var dispute in disputeData)
                           GestureDetector(
-                            onTap:(){
-                              showDialogScore(2,"DISPUTE", dispute);
+                            onTap: () {
+                              showDialogScore(2, "WORKING", dispute);
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -516,14 +534,14 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                         children: <Widget>[
                                           Text(
                                             dispute[0]['account_name']
-                                                        .toString(),
+                                                .toString(),
                                             style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w700,
                                                 color: Colors.grey[900]),
                                           ),
                                           Text(
-                                            "In Dispute",
+                                            "Working",
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.w700,
@@ -537,7 +555,8 @@ class _ScoreScreenState extends State<ScoreScreen> {
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
-                                          "-\$500.5",
+                                          "\$" +
+                                              dispute[0]['balance'].toString(),
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w700,
@@ -572,7 +591,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
   Future _getScores(BuildContext context) async {
     final _infoUser = Provider.of<LoginState>(context, listen: false);
     final _loadingScore = Provider.of<ScoreState>(context, listen: false);
-     await _loadingScore.getScore(_infoUser.getAccount(), _infoUser.getToken());
+    await _loadingScore.getScore(_infoUser.getAccount(), _infoUser.getToken());
     seriesList = await getGraphData();
     deletedData = _loadingScore.getDeletedData();
     disputeData = _loadingScore.getDisputeData();
@@ -604,30 +623,34 @@ class _ScoreScreenState extends State<ScoreScreen> {
 
     return [
       new charts.Series<OrdinalSales, String>(
-        id: 'Before',
-        seriesColor: charts.ColorUtil.fromDartColor(Colors.red.shade300),
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: beforeData,
-      ),
+          id: 'Before',
+          seriesColor: charts.ColorUtil.fromDartColor(Colors.red.shade300),
+          domainFn: (OrdinalSales score, _) => score.bureau,
+          measureFn: (OrdinalSales score, _) => score.score,
+          data: beforeData,
+          labelAccessorFn: (OrdinalSales score, _) =>
+              score.score.toString() == '0'
+                  ? ''
+                  : 'Score: ${score.score.toString()}'),
       new charts.Series<OrdinalSales, String>(
-        id: 'After',
-        seriesColor: charts.ColorUtil.fromDartColor(Colors.green.shade700),
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: afterData,
-        fillPatternFn: (OrdinalSales sales, _) =>
-            charts.FillPatternType.forwardHatch,
-      ),
+          id: 'After',
+          seriesColor: charts.ColorUtil.fromDartColor(Colors.green.shade800),
+          domainFn: (OrdinalSales score, _) => score.bureau,
+          measureFn: (OrdinalSales score, _) => score.score,
+          data: afterData,
+          labelAccessorFn: (OrdinalSales score, _) =>
+              score.score.toString() == '0'
+                  ? ''
+                  : 'Score: ${score.score.toString()}'),
     ];
   }
 
   static int checkString(dynamic value) {
     if (value is int) {
       return value;
-    } else if(value == "-"){
+    } else if (value == "-") {
       return 0;
-    }else {
+    } else {
       return int.parse(value);
     }
   }

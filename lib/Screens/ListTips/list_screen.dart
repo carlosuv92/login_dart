@@ -242,7 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           .bodyText2
                           .copyWith(fontSize: 16),
                       children: <TextSpan>[
-                        TextSpan(text: 'Mantener un balance del'),
+                        TextSpan(text: 'Mantener un balance del '),
                         TextSpan(
                             text: "30% ",
                             style: TextStyle(fontWeight: FontWeight.bold)),
@@ -302,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             text:
                                 'De prestar algun inconveniente personal que impida continuar con el proceso,'),
                         TextSpan(
-                            text: "indicarlo a su asesor ",
+                            text: " indicarlo a su asesor ",
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         TextSpan(
                             text:

@@ -145,6 +145,13 @@ class _PaymentsState extends State<Payments> {
                                               color: Colors.grey[900]),
                                         ),
                                         Text(
+                                          item['transaction_id'],
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.grey[700]),
+                                        ),
+                                        Text(
                                           item['method_payment'],
                                           style: TextStyle(
                                               fontSize: 13,

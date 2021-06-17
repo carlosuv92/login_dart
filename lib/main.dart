@@ -47,7 +47,7 @@ void callbackDispatcher() {
     // print("here================");
     //print(response);
     //var convert = json.decode(response.body);
-    if (/*convert['status']*/ true == true) {
+    if (/*convert['status']*/ false == true) {
       notification.instantNofitication();
     } else {
       print("no messgae");

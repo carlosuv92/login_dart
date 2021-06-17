@@ -20,7 +20,6 @@ class HorizontalPatternForwardHatchBarChart extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return new charts.BarChart(
@@ -28,6 +27,8 @@ class HorizontalPatternForwardHatchBarChart extends StatelessWidget {
       animate: animate,
       barGroupingType: charts.BarGroupingType.grouped,
       vertical: false,
+      barRendererDecorator: new charts.BarLabelDecorator<String>(),
+      domainAxis: new charts.OrdinalAxisSpec( ),
     );
   }
 
@@ -49,17 +50,17 @@ class HorizontalPatternForwardHatchBarChart extends StatelessWidget {
       new charts.Series<OrdinalSales, String>(
         id: 'Before',
         seriesColor: charts.ColorUtil.fromDartColor(Colors.red.shade300),
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
+        domainFn: (OrdinalSales score, _) => score.bureau,
+        measureFn: (OrdinalSales score, _) => score.score,
         data: desktopSalesData,
       ),
       new charts.Series<OrdinalSales, String>(
         id: 'After',
         seriesColor: charts.ColorUtil.fromDartColor(Colors.green.shade700),
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
+        domainFn: (OrdinalSales score, _) => score.bureau,
+        measureFn: (OrdinalSales score, _) => score.score,
         data: tableSalesData,
-        fillPatternFn: (OrdinalSales sales, _) =>
+        fillPatternFn: (OrdinalSales score, _) =>
             charts.FillPatternType.forwardHatch,
       ),
     ];
@@ -68,8 +69,8 @@ class HorizontalPatternForwardHatchBarChart extends StatelessWidget {
 
 /// Sample ordinal data type.
 class OrdinalSales {
-  final String year;
-  final int sales;
+  final String bureau;
+  final int score;
 
-  OrdinalSales(this.year, this.sales);
+  OrdinalSales(this.bureau, this.score);
 }
